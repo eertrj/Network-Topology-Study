@@ -1,0 +1,71 @@
+{
+  "network_size": 10000,
+  "analysis_time": 19.166199207305908,
+  "network_properties": {
+    "total_nodes": 10000,
+    "total_edges": 198786,
+    "average_degree": 39.7572,
+    "density": 0.003976117611761176,
+    "is_connected": true,
+    "number_of_components": 1
+  },
+  "propagation_performance": {
+    "total_steps": 6,
+    "total_time": 0.0205991268157959,
+    "coverage_percentage": 100.0,
+    "average_step_time": 0.003416339556376139,
+    "max_propagating_nodes": 3842,
+    "propagation_efficiency": 1666.6666666666667
+  },
+  "propagation_steps": [
+    {
+      "step": 0,
+      "received_count": 33,
+      "propagating_count": 1,
+      "pending_count": 9967,
+      "step_time": 8.106231689453125e-06,
+      "total_time": 9.059906005859375e-06
+    },
+    {
+      "step": 1,
+      "received_count": 982,
+      "propagating_count": 32,
+      "pending_count": 9018,
+      "step_time": 0.00014209747314453125,
+      "total_time": 0.0001609325408935547
+    },
+    {
+      "step": 2,
+      "received_count": 4824,
+      "propagating_count": 949,
+      "pending_count": 5176,
+      "step_time": 0.0023648738861083984,
+      "total_time": 0.0025289058685302734
+    },
+    {
+      "step": 3,
+      "received_count": 8488,
+      "propagating_count": 3842,
+      "pending_count": 1512,
+      "step_time": 0.007869958877563477,
+      "total_time": 0.010411977767944336
+    },
+    {
+      "step": 4,
+      "received_count": 9986,
+      "propagating_count": 3664,
+      "pending_count": 14,
+      "step_time": 0.007360935211181641,
+      "total_time": 0.01780986785888672
+    },
+    {
+      "step": 5,
+      "received_count": 10000,
+      "propagating_count": 1498,
+      "pending_count": 0,
+      "step_time": 0.002752065658569336,
+      "total_time": 0.0205991268157959
+    }
+  ],
+  "timestamp": "2025-09-29T19:55:29.098015"
+}

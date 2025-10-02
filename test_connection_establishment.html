@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connection Establishment Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+        }
+        .test-container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        .test-button {
+            background: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        .test-button:hover {
+            background: #45a049;
+        }
+        .result {
+            margin-top: 15px;
+            padding: 10px;
+            background: #f9f9f9;
+            border-left: 4px solid #4CAF50;
+        }
+        .connection-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .connection-type {
+            padding: 8px;
+            border-radius: 4px;
+            text-align: center;
+        }
+        .short-distance {
+            background: #e3f2fd;
+            border: 1px solid #2196f3;
+        }
+        .long-distance {
+            background: #fff3e0;
+            border: 1px solid #ff9800;
+        }
+    </style>
+</head>
+<body>
+    <h1>Connection Establishment Test</h1>
+    
+    <div class="test-container">
+        <h2>Test Scenario</h2>
+        <p><strong>Expected Behavior:</strong></p>
+        <ul>
+            <li><strong>0% long distance:</strong> Step 2 should show 5 nearby nodes turn green</li>
+            <li><strong>20% long distance:</strong> Step 2 should show 4 nearby + 1 distant node turn green</li>
+            <li><strong>100% long distance:</strong> Step 2 should show all 5 distant nodes turn green</li>
+        </ul>
+        
+        <p><strong>Test Parameters:</strong> 20 nodes, 5 connections per node, 50px max distance</p>
+        
+        <button class="test-button" onclick="testConnectionEstablishment()">Test Connection Logic</button>
+        
+        <div id="testResults" class="result" style="display: none;">
+            <h3>Connection Analysis Results</h3>
+            <div id="connectionDetails"></div>
+        </div>
+    </div>
+
+    <script>
+        function testConnectionEstablishment() {
+            const resultsDiv = document.getElementById('testResults');
+            const detailsDiv = document.getElementById('connectionDetails');
+            
+            resultsDiv.style.display = 'block';
+            detailsDiv.innerHTML = '<p>Running connection establishment test...</p>';
+            
+            // Test parameters
+            const totalNodes = 20;
+            const connectionsPerNode = 5;
+            const maxConnectionDistance = 50;
+            const canvasWidth = 800;
+            const canvasHeight = 600;
+            const margin = 50;
+            
+            // Generate random positions for nodes (same as in the main app)
+            const positions = [];
+            for (let i = 0; i < totalNodes; i++) {
+                positions.push({
+                    x: margin + Math.random() * (canvasWidth - 2 * margin),
+                    y: margin + Math.random() * (canvasHeight - 2 * margin)
+                });
+            }
+            
+            // Test different long distance percentages
+            const testPercentages = [0, 20, 100];
+            let results = [];
+            
+            testPercentages.forEach(longDistancePercentage => {
+                const result = analyzeConnectionsForNode(
+                    positions, 
+                    0, // Origin node
+                    connectionsPerNode, 
+                    maxConnectionDistance, 
+                    longDistancePercentage
+                );
+                results.push({
+                    percentage: longDistancePercentage,
+                    ...result
+                });
+            });
+            
+            // Display results
+            let html = '';
+            results.forEach(result => {
+                html += `
+                    <div class="connection-info">
+                        <div class="connection-type short-distance">
+                            <strong>${result.percentage}% Long Distance</strong><br>
+                            Short: ${result.shortConnections} | Long: ${result.longConnections}<br>
+                            Expected in Step 2: ${result.expectedStep2}
+                        </div>
+                    </div>
+                `;
+            });
+            
+            detailsDiv.innerHTML = html;
+        }
+        
+        function analyzeConnectionsForNode(positions, nodeIndex, connectionsPerNode, maxConnectionDistance, longDistancePercentage) {
+            const pos1 = positions[nodeIndex];
+            const candidates = [];
+            const longDistanceThreshold = maxConnectionDistance * 20;
+            
+            // Calculate distances to all other nodes
+            for (let j = 0; j < positions.length; j++) {
+                if (j !== nodeIndex) {
+                    const pos2 = positions[j];
+                    const dx = pos1.x - pos2.x;
+                    const dy = pos1.y - pos2.y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    candidates.push({node: j, distance: distance});
+                }
+            }
+            
+            // Sort by distance
+            candidates.sort((a, b) => a.distance - b.distance);
+            
+            // Separate short and long distance candidates
+            const shortDistanceCandidates = candidates.filter(c => c.distance <= maxConnectionDistance);
+            const longDistanceCandidates = candidates.filter(c => c.distance > maxConnectionDistance && c.distance <= longDistanceThreshold);
+            
+            // Calculate target connections (same logic as main app)
+            const targetConnections = Math.min(connectionsPerNode, candidates.length);
+            const longDistanceConnections = Math.floor(targetConnections * longDistancePercentage / 100);
+            const shortDistanceConnections = targetConnections - longDistanceConnections;
+            
+            // Determine expected Step 2 behavior
+            let expectedStep2;
+            if (longDistancePercentage === 0) {
+                expectedStep2 = `${shortDistanceConnections} nearby nodes`;
+            } else if (longDistancePercentage === 20) {
+                expectedStep2 = `${shortDistanceConnections} nearby + ${longDistanceConnections} distant`;
+            } else if (longDistancePercentage === 100) {
+                expectedStep2 = `${longDistanceConnections} distant nodes`;
+            }
+            
+            return {
+                shortConnections: shortDistanceConnections,
+                longConnections: longDistanceConnections,
+                totalCandidates: candidates.length,
+                shortCandidates: shortDistanceCandidates.length,
+                longCandidates: longDistanceCandidates.length,
+                expectedStep2: expectedStep2
+            };
+        }
+    </script>
+</body>
+</html>
