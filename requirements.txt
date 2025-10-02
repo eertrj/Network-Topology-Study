@@ -1,4 +1,4 @@
-# Requirements for GlucoXe Message Propagation Visualization
+# Requirements for Network Message Propagation Visualization
 # Install with: pip install -r requirements.txt
 
 numpy>=1.21.0

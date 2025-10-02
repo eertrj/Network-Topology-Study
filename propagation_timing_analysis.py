@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-GlucoXe Message Propagation Timing Analysis
+Network Message Propagation Timing Analysis
 
 This script analyzes the timing characteristics of message propagation
 in different network configurations and provides step-by-step timing estimates.
@@ -218,7 +218,7 @@ def print_detailed_results(results):
     """Print detailed timing analysis results."""
     
     print("="*80)
-    print("GLUCOXE MESSAGE PROPAGATION TIMING ANALYSIS")
+    print("NETWORK MESSAGE PROPAGATION TIMING ANALYSIS")
     print("="*80)
     
     for i, (config, result) in enumerate(zip(NETWORK_CONFIGS, results)):
@@ -267,7 +267,7 @@ def print_detailed_results(results):
 def main():
     """Main execution function."""
     
-    print("GlucoXe Message Propagation Timing Analysis")
+    print("Network Message Propagation Timing Analysis")
     print("=" * 50)
     print(f"Processing time per node: {MESSAGE_PROCESSING_TIME} ms")
     print(f"Network latency per step: {NETWORK_LATENCY} ms")

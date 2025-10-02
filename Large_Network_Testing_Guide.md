@@ -37,7 +37,7 @@ This guide explains how to test large networks (10,000 to 1,000,000 nodes) with 
 
 1. **Install Python Dependencies**
 ```bash
-cd /Users/alanchan/Documents/Codebase/GlucoXe-L1-IOTA/docs/Analysis/250929_Message_Propagation
+cd /path/to/Network_Topology_Study
 pip install -r large_requirements.txt
 ```
 
@@ -250,4 +250,4 @@ Your large network analysis is successful if:
 4. **Connected Graphs**: All networks remain connected
 5. **Geographical Patterns**: Clear distance-based connection preferences
 
-The results will demonstrate that GlucoXe's geographical network approach scales effectively from thousands to millions of nodes while maintaining the small-world properties essential for efficient message propagation.
+The results will demonstrate that geographical network approaches scale effectively from thousands to millions of nodes while maintaining the small-world properties essential for efficient message propagation.

@@ -289,7 +289,7 @@ def analyze_network_size(network_size):
 
 def main():
     """Main analysis function."""
-    print("GlucoXe Large Network Analysis - Simplified Version")
+    print("Large Network Analysis - Simplified Version")
     print("=" * 60)
     print("This demonstrates that large networks with geographical constraints")
     print("are computationally feasible, even with basic algorithms.")

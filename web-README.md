@@ -1,8 +1,8 @@
-# GlucoXe Message Propagation - Interactive Web Visualization
+# Network Message Propagation - Interactive Web Visualization
 
 ## Overview
 
-This is an interactive web-based visualization of GlucoXe message propagation using send-once full coverage strategy. The web version provides real-time control over network parameters, playback controls, and step-by-step timing analysis.
+This is an interactive web-based visualization of network message propagation using send-once full coverage strategy. The web version provides real-time control over network parameters, playback controls, and step-by-step timing analysis.
 
 ## Files
 
@@ -172,4 +172,4 @@ Potential improvements for future versions:
 **Configure**: Adjust parameters in left panel  
 **Navigate**: Use playback controls or progress bar  
 
-The web visualization provides an intuitive, interactive way to explore GlucoXe's message propagation algorithms with real-time control and immediate visual feedback.
+The web visualization provides an intuitive, interactive way to explore network message propagation algorithms with real-time control and immediate visual feedback.

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-GlucoXe Large Network Analysis with Geographical Constraints
+Large Network Analysis with Geographical Constraints
 
 This script analyzes message propagation in large networks (10K-1M nodes) 
 with geographical constraints using optimized algorithms.
@@ -396,7 +396,7 @@ def analyze_network_size(network_size):
 
 def main():
     """Main analysis function."""
-    print("GlucoXe Large Network Analysis with Geographical Constraints")
+    print("Large Network Analysis with Geographical Constraints")
     print("=" * 60)
     
     all_results = []

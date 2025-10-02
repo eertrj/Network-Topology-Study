@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-GlucoXe Network Message Propagation Visualization
+Network Message Propagation Visualization
 
 This script visualizes message propagation in a network using send-once full coverage.
 Shows step-by-step propagation with color coding:
@@ -369,7 +369,7 @@ def analyze_propagation(propagation_steps):
 
 def main():
     """Main execution function."""
-    print("GlucoXe Network Message Propagation Visualization")
+    print("Network Message Propagation Visualization")
     print("=" * 50)
     print(f"Configuration:")
     print(f"  Total nodes: {TOTAL_NODES}")

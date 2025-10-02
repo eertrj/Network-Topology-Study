@@ -1,6 +1,6 @@
-# GlucoXe Message Propagation Visualization
+# Network Message Propagation Visualization
 
-This directory contains tools for visualizing message propagation in the GlucoXe network using send-once full coverage strategy.
+This directory contains tools for visualizing message propagation in distributed networks using send-once full coverage strategy.
 
 **Date**: September 29, 2025  
 **Location**: `docs/Analysis/250929_Message_Propagation/`
@@ -144,7 +144,7 @@ The script generates a **small-world network** with:
 ## Example Output
 
 ```
-GlucoXe Network Message Propagation Visualization
+Network Message Propagation Visualization
 ==================================================
 Configuration:
   Total nodes: 100

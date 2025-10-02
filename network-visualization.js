@@ -1,12 +1,12 @@
 /**
- * GlucoXe Message Propagation Visualization
+ * Network Message Propagation Visualization
  * Interactive web-based network visualization with playback controls
  */
 
 class NetworkVisualization {
     constructor() {
         // Display version info for new session
-        console.log('GlucoXe Message Propagation Visualization v15 - Session started at 2025-01-01 18:00:00');
+        console.log('Network Message Propagation Visualization v15 - Session started at 2025-01-01 18:00:00');
         
         this.canvas = null;
         this.ctx = null;

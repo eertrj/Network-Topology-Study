@@ -1,4 +1,4 @@
-# GlucoXe Message Propagation - Interactive Web Visualization
+# Network Message Propagation - Interactive Web Visualization
 
 ## 🎯 **Project Complete**
 
@@ -201,6 +201,6 @@ Live statistics panel showing:
 
 ## 🎉 **Ready for Use**
 
-The interactive web visualization is now complete and ready for immediate use. Simply open `index.html` in any modern web browser to start exploring GlucoXe's message propagation algorithms with full interactive control.
+The interactive web visualization is now complete and ready for immediate use. Simply open `index.html` in any modern web browser to start exploring network message propagation algorithms with full interactive control.
 
 **The web version provides an intuitive, engaging way to understand and analyze network propagation behavior, making complex algorithms accessible through an elegant, user-friendly interface.**
