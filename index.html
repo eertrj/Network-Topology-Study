@@ -534,6 +534,21 @@
                     </div>
                 </div>
 
+                <div class="stats" id="networkStatsContainer" style="display: none;">
+                    <div class="stat-card">
+                        <div class="stat-value" id="connectionsStatsStat">0.0 / 0.0</div>
+                        <div class="stat-label">Mean / Median Connections</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="distanceStatsStat">0 / 0</div>
+                        <div class="stat-label">Mean / Median Distance (px)</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="fractureStat">No</div>
+                        <div class="stat-label">Network Fracture</div>
+                    </div>
+                </div>
+
                 <div class="diagnostic-feedback" id="diagnosticContainer" style="display: none;">
                     <h3>Network Diagnostic Feedback</h3>
                     <div class="diagnostic-stats">
@@ -551,28 +566,6 @@
                         </div>
                     </div>
                     
-                    <div class="diagnostic-stats">
-                        <div class="stat-card">
-                            <div class="stat-value" id="connectionsMeanStat">0.0</div>
-                            <div class="stat-label">Mean Connections</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-value" id="connectionsMedianStat">0.0</div>
-                            <div class="stat-label">Median Connections</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-value" id="distanceMeanStat">0</div>
-                            <div class="stat-label">Mean Distance (px)</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-value" id="distanceMedianStat">0</div>
-                            <div class="stat-label">Median Distance (px)</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-value" id="fractureStat">No</div>
-                            <div class="stat-label">Network Fracture</div>
-                        </div>
-                    </div>
                     <canvas id="diagnosticChart" width="600" height="200"></canvas>
                     <div class="diagnostic-info">
                         <p><strong>All Nodes Rule:</strong> Any node receiving message twice stops and sends confirmation back through path</p>

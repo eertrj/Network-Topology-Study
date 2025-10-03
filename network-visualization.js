@@ -346,6 +346,7 @@ class NetworkVisualization {
                     this.hideStatusMessage();
                     this.drawNetwork();
                     this.updateStats();
+                    this.updateNetworkStats();
                     this.updateDiagnosticStats();
                     this.updateControls();
                     
@@ -1481,6 +1482,7 @@ class NetworkVisualization {
             
             this.updateControls();
             this.updateStats();
+            this.updateNetworkStats();
             this.updateDiagnosticStats();
             this.drawNetwork();
         }, 100); // Small delay to allow UI to update
@@ -1689,6 +1691,24 @@ class NetworkVisualization {
         };
     }
 
+    updateNetworkStats() {
+        if (!this.network) {
+            document.getElementById('networkStatsContainer').style.display = 'none';
+            return;
+        }
+        
+        document.getElementById('networkStatsContainer').style.display = 'grid';
+        
+        // Calculate and display network statistics
+        const networkStats = this.calculateNetworkStatistics();
+        
+        document.getElementById('connectionsStatsStat').textContent = 
+            networkStats.connectionsMean.toFixed(1) + ' / ' + networkStats.connectionsMedian.toFixed(1);
+        document.getElementById('distanceStatsStat').textContent = 
+            Math.round(networkStats.distanceMean) + ' / ' + Math.round(networkStats.distanceMedian);
+        document.getElementById('fractureStat').textContent = networkStats.isFractured ? 'Yes' : 'No';
+    }
+
     updateDiagnosticStats() {
         const enableDiagnostics = document.getElementById('enableDiagnostics').checked;
         
@@ -1703,15 +1723,6 @@ class NetworkVisualization {
             document.getElementById('confirmationsReceivedStat').textContent = confirmationsReceived;
             document.getElementById('confirmationsExpectedStat').textContent = confirmationsExpected;
             document.getElementById('feedbackTimeStat').textContent = totalFeedbackTime.toFixed(1) + ' ms';
-            
-            // Calculate and display network statistics
-            const networkStats = this.calculateNetworkStatistics();
-            
-            document.getElementById('connectionsMeanStat').textContent = networkStats.connectionsMean.toFixed(1);
-            document.getElementById('connectionsMedianStat').textContent = networkStats.connectionsMedian.toFixed(1);
-            document.getElementById('distanceMeanStat').textContent = Math.round(networkStats.distanceMean);
-            document.getElementById('distanceMedianStat').textContent = Math.round(networkStats.distanceMedian);
-            document.getElementById('fractureStat').textContent = networkStats.isFractured ? 'Yes' : 'No';
         } else {
             document.getElementById('diagnosticContainer').style.display = 'none';
         }
@@ -2034,6 +2045,7 @@ class NetworkVisualization {
         this.updateControls();
         this.updateTimeDisplay();
         this.updateStats();
+        this.updateNetworkStats();
         this.updateDiagnosticStats();
         this.hideError();
         this.hideStatusMessage();
