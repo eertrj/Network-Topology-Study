@@ -71,6 +71,19 @@
             padding-bottom: 5px;
         }
 
+        .subsection {
+            margin-bottom: 20px;
+            padding-left: 15px;
+            border-left: 2px solid #e9ecef;
+        }
+
+        .subsection h4 {
+            color: #495057;
+            margin-bottom: 10px;
+            font-size: 0.95em;
+            font-weight: 600;
+        }
+
         .form-group {
             margin-bottom: 15px;
         }
@@ -377,94 +390,15 @@
         <div class="main-content">
             <div class="control-panel">
                 <div class="section">
-                    <h3>Network Configuration</h3>
+                    <h3>Generate Network</h3>
                     <div class="form-group">
                         <label for="totalNodes">Total Nodes</label>
                         <input type="number" id="totalNodes" value="100" min="10" max="10000">
                     </div>
                     <div class="form-group">
-                        <label for="originNode">Origin Node</label>
-                        <input type="number" id="originNode" value="0" min="0">
-                    </div>
-                    <div class="form-group">
                         <label for="randomSeed">Random Seed</label>
                         <input type="number" id="randomSeed" value="42" min="0">
                     </div>
-                </div>
-
-                <div class="section">
-                    <h3>Connection Optimization</h3>
-                    <div class="form-group">
-                        <label for="connectionsPerNode">Connections per Node</label>
-                        <input type="number" id="connectionsPerNode" value="5" min="2" max="50">
-                        <small>Maximum number of connections each node can have</small>
-                    </div>
-                    <div class="form-group">
-                        <label>
-                            <input type="checkbox" id="enableBridging"> Enable Bridging Connections
-                        </label>
-                        <small>Allow unlimited distance connections to prevent network fractures</small>
-                    </div>
-                </div>
-
-                <div class="section">
-                    <h3>Geographical Constraints</h3>
-                    <div class="form-group">
-                        <label>
-                            <input type="checkbox" id="enableGeographical" checked> Enable Geographical Constraints
-                        </label>
-                    </div>
-                    <div class="form-group">
-                        <label for="longDistancePercentage">Long Distance Connections (%)</label>
-                        <input type="range" id="longDistancePercentage" min="0" max="100" value="20" step="5">
-                        <span id="longDistanceValue">20%</span>
-                        <small>Percentage of connections that can be long-distance (1x-20x max distance)</small>
-                    </div>
-                    <div class="form-group">
-                        <label for="maxConnectionDistance">Max Connection Distance</label>
-                        <input type="range" id="maxConnectionDistance" value="150" min="50" max="400" step="10">
-                        <span id="maxConnectionDistanceValue">150 pixels</span>
-                    </div>
-                    <div class="form-group">
-                        <label for="distanceWeight">Distance Weight</label>
-                        <input type="range" id="distanceWeight" value="0.7" min="0" max="1" step="0.1">
-                        <span id="distanceWeightValue">0.7</span>
-                        <small>Higher = stronger distance preference</small>
-                    </div>
-                </div>
-
-                <div class="section">
-                    <h3>Timing Parameters</h3>
-                    <div class="form-group">
-                        <label for="processingTime">Processing Time (ms)</label>
-                        <input type="number" id="processingTime" value="1.0" min="0.1" max="10" step="0.1">
-                    </div>
-                    <div class="form-group">
-                        <label for="networkLatency">Network Latency (ms)</label>
-                        <input type="number" id="networkLatency" value="5.0" min="0.1" max="50" step="0.1">
-                    </div>
-                    <div class="form-group">
-                        <label for="animationSpeed">Animation Speed (ms)</label>
-                        <input type="number" id="animationSpeed" value="500" min="100" max="2000" step="100">
-                    </div>
-                </div>
-
-                <div class="section">
-                    <h3>Network Diagnostics</h3>
-                    <div class="form-group">
-                        <label>
-                            <input type="checkbox" id="enableDiagnostics" checked> Enable Network Diagnostics
-                        </label>
-                    </div>
-                    <div class="form-group">
-                        <label for="diagnosticDelay">Confirmation Delay (ms)</label>
-                        <input type="number" id="diagnosticDelay" value="10" min="1" max="100" step="1">
-                        <small>Delay before sending confirmation back to origin</small>
-                    </div>
-                </div>
-
-                <div class="section">
-                    <h3>Visualization</h3>
                     <div class="form-group">
                         <label for="nodeSize">Node Size</label>
                         <input type="range" id="nodeSize" value="8" min="3" max="15" step="1">
@@ -477,12 +411,93 @@
                             <option value="circular">Circular Layout</option>
                         </select>
                     </div>
+                    <div style="margin-top: 20px;">
+                        <button class="button" onclick="generateNetwork()">Generate Network</button>
+                        <button class="button secondary" onclick="resetVisualization()">Reset</button>
+                        <button class="button danger" onclick="clearCanvas()">Clear</button>
+                    </div>
                 </div>
 
                 <div class="section">
-                    <button class="button" onclick="generateNetwork()">Generate Network</button>
-                    <button class="button secondary" onclick="resetVisualization()">Reset</button>
-                    <button class="button danger" onclick="clearCanvas()">Clear</button>
+                    <h3>Modify Network</h3>
+                    <div style="margin-bottom: 20px;">
+                        <button class="button" onclick="modifyNetwork()">Modify Network</button>
+                    </div>
+
+                    <div class="subsection">
+                        <h4>Connection Optimization</h4>
+                        <div class="form-group">
+                            <label for="connectionsPerNode">Connections per Node</label>
+                            <input type="number" id="connectionsPerNode" value="5" min="2" max="50">
+                            <small>Maximum number of connections each node can have</small>
+                        </div>
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox" id="enableBridging"> Enable Bridging Connections
+                            </label>
+                            <small>Allow unlimited distance connections to prevent network fractures</small>
+                        </div>
+                    </div>
+
+                    <div class="subsection">
+                        <h4>Geographical Constraints</h4>
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox" id="enableGeographical" checked> Enable Geographical Constraints
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label for="longDistancePercentage">Long Distance Connections (%)</label>
+                            <input type="range" id="longDistancePercentage" min="0" max="100" value="20" step="5">
+                            <span id="longDistanceValue">20%</span>
+                            <small>Percentage of connections that can be long-distance (1x-20x max distance)</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="maxConnectionDistance">Max Connection Distance</label>
+                            <input type="range" id="maxConnectionDistance" value="150" min="50" max="400" step="10">
+                            <span id="maxConnectionDistanceValue">150 pixels</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="distanceWeight">Distance Weight</label>
+                            <input type="range" id="distanceWeight" value="0.7" min="0" max="1" step="0.1">
+                            <span id="distanceWeightValue">0.7</span>
+                            <small>Higher = stronger distance preference</small>
+                        </div>
+                    </div>
+
+                    <div class="subsection">
+                        <h4>Timing Parameters</h4>
+                        <div class="form-group">
+                            <label for="originNode">Origin Node</label>
+                            <input type="number" id="originNode" value="0" min="0">
+                        </div>
+                        <div class="form-group">
+                            <label for="processingTime">Processing Time (ms)</label>
+                            <input type="number" id="processingTime" value="1.0" min="0.1" max="10" step="0.1">
+                        </div>
+                        <div class="form-group">
+                            <label for="networkLatency">Network Latency (ms)</label>
+                            <input type="number" id="networkLatency" value="5.0" min="0.1" max="50" step="0.1">
+                        </div>
+                        <div class="form-group">
+                            <label for="animationSpeed">Animation Speed (ms)</label>
+                            <input type="number" id="animationSpeed" value="500" min="100" max="2000" step="100">
+                        </div>
+                    </div>
+
+                    <div class="subsection">
+                        <h4>Network Diagnostics</h4>
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox" id="enableDiagnostics" checked> Enable Network Diagnostics
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label for="diagnosticDelay">Confirmation Delay (ms)</label>
+                            <input type="number" id="diagnosticDelay" value="10" min="1" max="100" step="1">
+                            <small>Delay before sending confirmation back to origin</small>
+                        </div>
+                    </div>
                 </div>
             </div>
 

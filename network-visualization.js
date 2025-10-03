@@ -204,6 +204,78 @@ class NetworkVisualization {
         }
     }
 
+    modifyNetwork() {
+        if (!this.network || !this.nodePositions.length) {
+            this.showError('Please generate a network first');
+            return;
+        }
+
+        const totalNodes = this.network.nodes.length;
+        const connectionsPerNode = parseInt(document.getElementById('connectionsPerNode').value);
+        const seed = parseInt(document.getElementById('randomSeed').value);
+        const enableGeographical = document.getElementById('enableGeographical').checked;
+
+        console.log('=== MODIFYING NETWORK CONNECTIONS ===');
+        console.log(`Total Nodes: ${totalNodes}`);
+        console.log(`Connections per Node: ${connectionsPerNode}`);
+        console.log(`Geographical Constraints: ${enableGeographical ? 'Enabled' : 'Disabled'}`);
+
+        try {
+            this.showStatusMessage('Modifying network connections...');
+
+            // Keep existing node positions but regenerate connections
+            const existingPositions = [...this.nodePositions];
+            this.geographicalPositions = existingPositions;
+
+            // Reset network connections
+            this.network = {
+                nodes: Array.from({length: totalNodes}, (_, i) => ({id: i, connections: []})),
+                edges: []
+            };
+
+            // Regenerate connections with current settings
+            setTimeout(() => {
+                try {
+                    const generationStartTime = performance.now();
+                    console.log('%cModifying network connections...', 'color: #00FF00; font-weight: bold;');
+                    
+                    this.network = this.createSmallWorldNetwork(totalNodes, connectionsPerNode, seed);
+                    
+                    const generationEndTime = performance.now();
+                    const generationTime = generationEndTime - generationStartTime;
+                    
+                    console.log('%cNetwork modification completed!', 'color: #00FF00; font-weight: bold; background: #1B2D1B; padding: 2px 4px; border-radius: 3px;');
+                    console.log(`%cModification time: ${generationTime.toFixed(2)} ms`, 'color: #FFD700; font-weight: bold; background: #333; padding: 2px 4px; border-radius: 3px;');
+                    console.log(`Modified network with ${this.network.nodes.length} nodes and ${this.network.edges.length} edges`);
+                    console.log(`Average connections per node: ${(this.network.edges.length * 2 / this.network.nodes.length).toFixed(2)}`);
+                    
+                    // Restore node positions
+                    this.nodePositions = existingPositions;
+                    this.geographicalPositions = existingPositions;
+                    
+                    this.showStatusMessage('Running propagation simulation...');
+                    
+                    // Automatically run propagation simulation
+                    this.simulatePropagation();
+                    
+                    this.hideLoading();
+                    this.hideStatusMessage();
+                    this.drawNetwork();
+                    this.updateStats();
+                    this.updateNetworkStats();
+                    this.updateDiagnosticStats();
+                    this.updateControls();
+                    
+                } catch (error) {
+                    this.showError('Error modifying network: ' + error.message);
+                }
+            }, 50);
+            
+        } catch (error) {
+            this.showError('Error modifying network: ' + error.message);
+        }
+    }
+
     generateNetwork() {
         const totalNodes = parseInt(document.getElementById('totalNodes').value);
         const connectionsPerNode = parseInt(document.getElementById('connectionsPerNode').value);
@@ -2139,6 +2211,10 @@ function goToStart() {
 
 function goToEnd() {
     visualization.goToEnd();
+}
+
+function modifyNetwork() {
+    visualization.modifyNetwork();
 }
 
 // Initialize when page loads
