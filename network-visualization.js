@@ -346,6 +346,7 @@ class NetworkVisualization {
                     this.hideStatusMessage();
                     this.drawNetwork();
                     this.updateStats();
+                    this.updateDiagnosticStats();
                     this.updateControls();
                     
                 } catch (error) {
@@ -1634,6 +1635,60 @@ class NetworkVisualization {
         }
     }
 
+    calculateMean(values) {
+        if (values.length === 0) return 0;
+        return values.reduce((sum, val) => sum + val, 0) / values.length;
+    }
+
+    calculateMedian(values) {
+        if (values.length === 0) return 0;
+        const sorted = [...values].sort((a, b) => a - b);
+        const mid = Math.floor(sorted.length / 2);
+        return sorted.length % 2 === 0 ? (sorted[mid - 1] + sorted[mid]) / 2 : sorted[mid];
+    }
+
+    calculateNetworkStatistics() {
+        if (!this.network || !this.nodePositions.length) {
+            return {
+                connectionsMean: 0,
+                connectionsMedian: 0,
+                distanceMean: 0,
+                distanceMedian: 0,
+                isFractured: false
+            };
+        }
+
+        // Calculate connection statistics
+        const connectionCounts = this.network.nodes.map(node => node.connections.length);
+        const connectionsMean = this.calculateMean(connectionCounts);
+        const connectionsMedian = this.calculateMedian(connectionCounts);
+
+        // Calculate distance statistics
+        const distances = [];
+        for (const edge of this.network.edges) {
+            const [node1, node2] = edge;
+            const pos1 = this.nodePositions[node1];
+            const pos2 = this.nodePositions[node2];
+            const dx = pos1.x - pos2.x;
+            const dy = pos1.y - pos2.y;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+            distances.push(distance);
+        }
+        const distanceMean = this.calculateMean(distances);
+        const distanceMedian = this.calculateMedian(distances);
+
+        // Check for network fracture
+        const isFractured = !this.isNetworkConnected(this.network, this.network.nodes.length);
+
+        return {
+            connectionsMean,
+            connectionsMedian,
+            distanceMean,
+            distanceMedian,
+            isFractured
+        };
+    }
+
     updateDiagnosticStats() {
         const enableDiagnostics = document.getElementById('enableDiagnostics').checked;
         
@@ -1648,6 +1703,15 @@ class NetworkVisualization {
             document.getElementById('confirmationsReceivedStat').textContent = confirmationsReceived;
             document.getElementById('confirmationsExpectedStat').textContent = confirmationsExpected;
             document.getElementById('feedbackTimeStat').textContent = totalFeedbackTime.toFixed(1) + ' ms';
+            
+            // Calculate and display network statistics
+            const networkStats = this.calculateNetworkStatistics();
+            
+            document.getElementById('connectionsMeanStat').textContent = networkStats.connectionsMean.toFixed(1);
+            document.getElementById('connectionsMedianStat').textContent = networkStats.connectionsMedian.toFixed(1);
+            document.getElementById('distanceMeanStat').textContent = Math.round(networkStats.distanceMean);
+            document.getElementById('distanceMedianStat').textContent = Math.round(networkStats.distanceMedian);
+            document.getElementById('fractureStat').textContent = networkStats.isFractured ? 'Yes' : 'No';
         } else {
             document.getElementById('diagnosticContainer').style.display = 'none';
         }

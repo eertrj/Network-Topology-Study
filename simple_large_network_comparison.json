@@ -1,0 +1,144 @@
+[
+  {
+    "network_size": 10000,
+    "analysis_time": 19.166199207305908,
+    "network_properties": {
+      "total_nodes": 10000,
+      "total_edges": 198786,
+      "average_degree": 39.7572,
+      "density": 0.003976117611761176,
+      "is_connected": true,
+      "number_of_components": 1
+    },
+    "propagation_performance": {
+      "total_steps": 6,
+      "total_time": 0.0205991268157959,
+      "coverage_percentage": 100.0,
+      "average_step_time": 0.003416339556376139,
+      "max_propagating_nodes": 3842,
+      "propagation_efficiency": 1666.6666666666667
+    },
+    "propagation_steps": [
+      {
+        "step": 0,
+        "received_count": 33,
+        "propagating_count": 1,
+        "pending_count": 9967,
+        "step_time": 8.106231689453125e-06,
+        "total_time": 9.059906005859375e-06
+      },
+      {
+        "step": 1,
+        "received_count": 982,
+        "propagating_count": 32,
+        "pending_count": 9018,
+        "step_time": 0.00014209747314453125,
+        "total_time": 0.0001609325408935547
+      },
+      {
+        "step": 2,
+        "received_count": 4824,
+        "propagating_count": 949,
+        "pending_count": 5176,
+        "step_time": 0.0023648738861083984,
+        "total_time": 0.0025289058685302734
+      },
+      {
+        "step": 3,
+        "received_count": 8488,
+        "propagating_count": 3842,
+        "pending_count": 1512,
+        "step_time": 0.007869958877563477,
+        "total_time": 0.010411977767944336
+      },
+      {
+        "step": 4,
+        "received_count": 9986,
+        "propagating_count": 3664,
+        "pending_count": 14,
+        "step_time": 0.007360935211181641,
+        "total_time": 0.01780986785888672
+      },
+      {
+        "step": 5,
+        "received_count": 10000,
+        "propagating_count": 1498,
+        "pending_count": 0,
+        "step_time": 0.002752065658569336,
+        "total_time": 0.0205991268157959
+      }
+    ],
+    "timestamp": "2025-09-29T19:55:29.098015"
+  },
+  {
+    "network_size": 100000,
+    "analysis_time": 1842.0870161056519,
+    "network_properties": {
+      "total_nodes": 100000,
+      "total_edges": 1998758,
+      "average_degree": 39.97516,
+      "density": 0.0003997555975559756,
+      "is_connected": true,
+      "number_of_components": 1
+    },
+    "propagation_performance": {
+      "total_steps": 6,
+      "total_time": 0.3107750415802002,
+      "coverage_percentage": 100.0,
+      "average_step_time": 0.05166304111480713,
+      "max_propagating_nodes": 43684,
+      "propagation_efficiency": 16666.666666666668
+    },
+    "propagation_steps": [
+      {
+        "step": 0,
+        "received_count": 42,
+        "propagating_count": 1,
+        "pending_count": 99958,
+        "step_time": 6.9141387939453125e-06,
+        "total_time": 7.867813110351562e-06
+      },
+      {
+        "step": 1,
+        "received_count": 1510,
+        "propagating_count": 41,
+        "pending_count": 98490,
+        "step_time": 0.00022983551025390625,
+        "total_time": 0.00024080276489257812
+      },
+      {
+        "step": 2,
+        "received_count": 29637,
+        "propagating_count": 1468,
+        "pending_count": 70363,
+        "step_time": 0.0056340694427490234,
+        "total_time": 0.005875825881958008
+      },
+      {
+        "step": 3,
+        "received_count": 73321,
+        "propagating_count": 28127,
+        "pending_count": 26679,
+        "step_time": 0.08524203300476074,
+        "total_time": 0.09113693237304688
+      },
+      {
+        "step": 4,
+        "received_count": 99173,
+        "propagating_count": 43684,
+        "pending_count": 827,
+        "step_time": 0.14501214027404785,
+        "total_time": 0.23652195930480957
+      },
+      {
+        "step": 5,
+        "received_count": 100000,
+        "propagating_count": 25852,
+        "pending_count": 0,
+        "step_time": 0.0738532543182373,
+        "total_time": 0.3107750415802002
+      }
+    ],
+    "timestamp": "2025-09-29T20:26:11.189597"
+  }
+]
